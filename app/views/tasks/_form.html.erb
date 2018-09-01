@@ -1,0 +1,47 @@
+<%= form_with(model: task, local: true) do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :task_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :task_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :days %>
+    <%= form.label :monday %>
+    <%= form.check_box :days, { multiple: true }, 'monday', nil %>
+    <%= form.label :tuesday %>
+    <%= form.check_box :days, { multiple: true }, 'tuesday', nil %>
+    <%= form.label :wednesday %>
+    <%= form.check_box :days, { multiple: true }, 'wednesday', nil %>
+    <%= form.label :thursday %>
+    <%= form.check_box :days, { multiple: true }, 'thursday', nil %>
+    <%= form.label :friday %>
+    <%= form.check_box :days, { multiple: true }, 'friday', nil %>
+    <%= form.label :saturday %>
+    <%= form.check_box :days, { multiple: true }, 'saturday', nil %>
+    <%= form.label :sunday %>
+    <%= form.check_box :days, { multiple: true }, 'sunday', nil %>
+
+
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

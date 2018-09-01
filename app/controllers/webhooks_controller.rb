@@ -1,5 +1,3 @@
-require 'line/bot'
-
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -14,38 +12,50 @@ class WebhooksController < ApplicationController
 
     events = client.parse_events_from(body)
     events.each do |event|
-      case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          user = JSON.parse(client.get_profile(event['source']['userId']).body)
-          message = {
-            type: 'text',
-            text: "#{user['displayName']} says: #{event.message['text']}"
-          }
-          client.reply_message(event['replyToken'], message)
-        when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-          message = {
-            type: 'text',
-            text: "You sent a video or photo!"
-          }
-          client.reply_message(event['replyToken'], message)
-          response = client.get_message_content(event.message['id'])
-          puts "== CONTENT =="
-          tf = Tempfile.open("content")
-          tf.write(response.body)
-          puts tf.to_s
-          public_url = uploadToS3(tf)
-
-          postImageToShuttlerock(public_url)
-        end
-      end
+      line_entity = create_or_find_line_entity(event)
+      # case event
+      # when Line::Bot::Event::Message
+      #   case event.type
+      #   when Line::Bot::Event::MessageType::Text
+      #     user = JSON.parse(client.get_profile(event['source']['userId']).body)
+      #     message = {
+      #       type: 'text',
+      #       text: "#{user['displayName']} says: #{event.message['text']}"
+      #     }
+      #     client.reply_message(event['replyToken'], message)
+      #   when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+      #     message = {
+      #       type: 'text',
+      #       text: "You sent a video or photo!"
+      #     }
+      #     client.reply_message(event['replyToken'], message)
+      #     response = client.get_message_content(event.message['id'])
+      #     tf = Tempfile.open("content")
+      #     tf.write(response.body)
+      #     public_url = uploadToS3(tf)
+      #
+      #     postImageToShuttlerock(public_url)
+      #   end
+      # end
     end
 
     render plain: 'OK', status: :ok
   end
 
   private
+
+  def create_or_find_line_entity(event)
+    case event['source']['type']
+    when 'user'
+      entity = LineUser.find_or_create_by(line_id: event['source']['userId'])
+      username = JSON.parse(client.get_profile(event['source']['userId']).body)['displayName']
+      entity.update(line_username: username)
+    when 'group'
+      entity = LineGroup.find_or_create_by(line_id: event['source']['groupId'])
+    end
+
+    entity
+  end
 
   def uploadToS3(file)
     bucket = Aws::S3::Bucket.new('scratch.shuttlerock.com')
@@ -62,9 +72,6 @@ class WebhooksController < ApplicationController
   end
 
   def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
+    @client ||= LineService.new.client
   end
 end

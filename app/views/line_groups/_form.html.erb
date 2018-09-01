@@ -1,0 +1,27 @@
+<%= form_with(model: line_group, local: true) do |form| %>
+  <% if line_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(line_group.errors.count, "error") %> prohibited this line_group from being saved:</h2>
+
+      <ul>
+      <% line_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :line_id %>
+    <%= form.text_field :line_id, id: :line_group_line_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_tasks_group %>
+    <%= form.check_box :is_tasks_group %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

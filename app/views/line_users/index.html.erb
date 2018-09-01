@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Line Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Line</th>
+      <th>Line username</th>
+      <th>Task User?</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @line_users.each do |line_user| %>
+      <tr>
+        <td><%= line_user.line_id %></td>
+        <td><%= line_user.line_username %></td>
+        <td><%= line_user.is_tasks_user %></td>
+        <td><%= link_to 'Show', line_user %></td>
+        <td><%= link_to 'Edit', edit_line_user_path(line_user) %></td>
+        <td><%= link_to 'Destroy', line_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Line User', new_line_user_path %>

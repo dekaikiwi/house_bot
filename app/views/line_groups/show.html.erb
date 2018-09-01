@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Line:</strong>
+  <%= @line_group.line_id %>
+</p>
+
+<p>
+  <strong>Tasks Group?:</strong>
+  <%= @line_group.is_tasks_group %>
+</p>
+
+
+<%= link_to 'Edit', edit_line_group_path(@line_group) %> |
+<%= link_to 'Back', line_groups_path %>

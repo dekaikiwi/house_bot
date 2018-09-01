@@ -1,0 +1,33 @@
+<%= form_with(model: line_user, local: true) do |form| %>
+  <% if line_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(line_user.errors.count, "error") %> prohibited this line_user from being saved:</h2>
+
+      <ul>
+      <% line_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :line_id %>
+    <%= form.text_field :line_id, id: :line_user_line_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :line_username %>
+    <%= form.text_field :line_username, id: :line_user_line_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_tasks_user %>
+    <%= form.check_box :is_tasks_user %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
