@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  line_user: one
+  task: one
+  is_completed: false
+
+two:
+  line_user: two
+  task: two
+  is_completed: false

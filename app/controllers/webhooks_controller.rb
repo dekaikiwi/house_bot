@@ -67,7 +67,7 @@ class WebhooksController < ApplicationController
 
   def postImageToShuttlerock(image_url)
     uri = URI("https://api.shuttlerock.com/v2/jono/boards/line-test-board/entries.json")
-    res = Net::HTTP.post_form(uri, name: 'Test Upload from Line', image_url: image_url, token: 'dTlOZzdTUkloeFc0amtEUkZSYVNyNG1DWXQ3VUtZN0FHQkRBdGxmVDVVR0ZqZWo4UUhwRXY2bE5rUzZlbFE2dnZBcTF2RkgxT1l0OUVJalIreERXejZVV1RuOEFaK2Jka09NV2tSbGxMYWs9LS0vK09ncE5jQkl1TGlzcWViQzIxVXJnPT0=--21e8e5e45530d1cfcbc0942fd9b7878ddbb3e451')
+    res = Net::HTTP.post_form(uri, name: 'Test Upload from Line', image_url: image_url, token: '')
     puts res.body
   end
 

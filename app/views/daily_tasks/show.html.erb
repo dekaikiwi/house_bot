@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Line user:</strong>
+  <%= @daily_task.line_user %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @daily_task.task %>
+</p>
+
+<p>
+  <strong>Is completed:</strong>
+  <%= @daily_task.is_completed %>
+</p>
+
+<%= link_to 'Edit', edit_daily_task_path(@daily_task) %> |
+<%= link_to 'Back', daily_tasks_path %>

@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180901153938) do
+ActiveRecord::Schema.define(version: 20180901155728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_tasks", force: :cascade do |t|
+    t.bigint "line_user_id"
+    t.bigint "task_id"
+    t.boolean "is_completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["line_user_id"], name: "index_daily_tasks_on_line_user_id"
+    t.index ["task_id"], name: "index_daily_tasks_on_task_id"
+  end
 
   create_table "line_groups", force: :cascade do |t|
     t.string "line_id"
@@ -39,4 +49,6 @@ ActiveRecord::Schema.define(version: 20180901153938) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "daily_tasks", "line_users"
+  add_foreign_key "daily_tasks", "tasks"
 end

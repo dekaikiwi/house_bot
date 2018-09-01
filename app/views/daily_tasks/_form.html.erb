@@ -1,0 +1,32 @@
+<%= form_with(model: daily_task, local: true) do |form| %>
+  <% if daily_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(daily_task.errors.count, "error") %> prohibited this daily_task from being saved:</h2>
+
+      <ul>
+      <% daily_task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :line_user_id %>
+    <%= form.text_field :line_user_id, id: :daily_task_line_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :task_id %>
+    <%= form.text_field :task_id, id: :daily_task_task_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_completed %>
+    <%= form.check_box :is_completed, id: :daily_task_is_completed %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
