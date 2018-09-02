@@ -1,5 +1,6 @@
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
+  skip_before_action :check_for_lockup
 
   def line
     body = request.body.read

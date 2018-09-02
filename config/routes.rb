@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Lockup::Engine, at: '/'
+
   resources :daily_tasks
   resources :line_groups
   resources :line_users
