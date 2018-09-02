@@ -4,7 +4,7 @@ class TaskService
   end
 
   def tasks_for_today
-    day = current_date.strftime("%A").downcase
+    day = task_date.strftime("%A").downcase
     Task.where("'#{day}' = ANY (days)")
   end
 
@@ -153,10 +153,10 @@ class TaskService
   private
 
   def formatted_date
-    current_date.strftime('%Y年%-m月%-d日(%a)')
+    task_date.strftime('%Y年%-m月%-d日(%a)')
   end
 
-  def current_date
-    Time.now.in_time_zone("Tokyo")
+  def task_date
+    Time.now.in_time_zone("Tokyo") + 1.day
   end
 end
