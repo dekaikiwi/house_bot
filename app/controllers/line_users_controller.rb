@@ -69,6 +69,9 @@ class LineUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_user_params
-      params.require(:line_user).permit(:line_id, :line_username, :is_tasks_user)
+      @line_user_params = params.require(:line_user).permit(:line_id, :line_username, :is_tasks_user, :central_ids)
+      @line_user_params[:central_ids] = @line_user_params[:central_ids].split(',')
+
+      @line_user_params
     end
 end

@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'line-bot-api'
 gem 'aws-sdk', '~> 2'
 gem 'lockup'
+gem 'central_sports', github: 'dekaikiwi/central_sport_unofficial_ruby'
 
 
 # Use Capistrano for deployment
